@@ -1,4 +1,4 @@
-name: My First GitHub Action
+name: Docker Build
 
 on:
   push:
@@ -6,17 +6,12 @@ on:
       - main
 
 jobs:
-  test:
+  docker-build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Say Hello
-        run: echo "Hello from GitHub Actions!"
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Check Linux
-        run: |
-          echo "Running on:"
-          uname -a
-
-      - name: Check Docker
-        run: docker --version
+      - name: Build Docker image
+        run: docker build -t my-github-actions-app:v1 .
